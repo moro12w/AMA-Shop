@@ -3,72 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMA Scripts | Elite Store</title>
+    <title>AMA Scripts | Premium Elite Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Inter:wght@300;400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Inter:wght@400;900&display=swap');
+        
         body { background-color: #020617; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .font-header { font-family: 'Orbitron', sans-serif; }
-        .nav-glass { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(59, 130, 246, 0.2); }
-        .card { background: #0f172a; border: 1px solid #1e293b; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; }
-        .card:hover { transform: translateY(-10px); border-color: #3b82f6; box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); }
-        .modal-bg { background: rgba(0, 0, 0, 0.96); backdrop-filter: blur(12px); display: none; z-index: 999; }
-        .discount-tag { background: linear-gradient(135deg, #ef4444, #f59e0b); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3); }
+        
+        /* Glow Effects */
+        .hero-bg { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100%; height: 500px; background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, rgba(2, 6, 23, 0) 70%); z-index: -1; }
+        .nav-glass { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid #1e293b; }
+        
+        /* Card Styling */
+        .card { background: #0f172a; border: 1px solid #1e293b; transition: 0.4s; }
+        .card:hover { transform: translateY(-10px); border-color: #3b82f6; box-shadow: 0 10px 40px -15px rgba(59, 130, 246, 0.4); }
+        .discount-label { background: linear-gradient(90deg, #ef4444, #f59e0b); }
+        
+        /* Modal */
+        .modal-bg { background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(12px); display: none; z-index: 999; }
         input { background: #020617 !important; border: 1px solid #1e293b !important; color: white !important; }
-        input:focus { border-color: #3b82f6 !important; box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
     </style>
 </head>
 <body>
 
-    <nav class="sticky top-0 z-50 nav-glass p-5 px-8 md:px-16 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-600/30">
-                <span class="font-header font-black text-2xl italic">A</span>
-            </div>
-            <h1 class="text-3xl font-header font-black uppercase tracking-tighter italic">AMA <span class="text-blue-500 font-light">Scripts</span></h1>
-        </div>
-        <a href="https://discord.gg/73emSMfn" target="_blank" class="bg-[#5865F2] hover:bg-[#4752c4] px-8 py-3 rounded-2xl font-bold text-sm transition-all flex items-center gap-2 shadow-lg">
-            <i class="fab fa-discord"></i> JOIN DISCORD
+    <div class="hero-bg"></div>
+
+    <nav class="sticky top-0 z-50 nav-glass p-5 px-10 flex justify-between items-center">
+        <h1 class="text-3xl font-header font-black italic uppercase tracking-tighter">AMA <span class="text-blue-600 font-light italic">SCRIPTS</span></h1>
+        <a href="https://discord.gg/73emSMfn" target="_blank" class="bg-[#5865F2] hover:bg-[#4752c4] px-6 py-2.5 rounded-xl font-black text-sm transition-all shadow-lg">
+            <i class="fab fa-discord mr-2"></i> DISCORD
         </a>
     </nav>
 
-    <header class="py-24 text-center relative">
-        <div class="absolute inset-0 bg-blue-500/5 blur-[120px] rounded-full mx-auto w-1/2 h-full -z-10"></div>
-        <h2 class="text-6xl md:text-9xl font-header font-black mb-6 italic tracking-tighter leading-none">THE <span class="text-blue-600">COLLECTION</span></h2>
-        <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-light italic">High-Performance QB-Core Resources for Modern Servers.</p>
+    <header class="py-24 text-center">
+        <h2 class="text-7xl md:text-9xl font-header font-black mb-4 italic leading-none tracking-tighter">THE <span class="text-blue-600">ELITE</span></h2>
+        <p class="text-slate-400 text-xl font-light italic uppercase tracking-widest">Premium QB-Core Assets</p>
     </header>
 
-    <main class="container mx-auto px-6 md:px-16 pb-32">
-        <div id="grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10"></div>
+    <main class="container mx-auto px-10 pb-32">
+        <div id="grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
     </main>
 
     <div id="orderModal" class="modal-bg fixed inset-0 flex items-center justify-center p-6" onclick="if(event.target.id === 'orderModal') closeModal()">
-        <div class="bg-[#0f172a] border border-slate-800 w-full max-w-lg rounded-[3rem] p-12 relative shadow-2xl overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-2 bg-blue-600"></div>
-            <h3 class="text-3xl font-header font-black mb-2 italic uppercase">Order Form</h3>
-            <p class="text-slate-500 text-sm mb-10 tracking-widest uppercase">Fill details to open ticket</p>
+        <div class="bg-[#0f172a] border border-blue-900/30 w-full max-w-md rounded-[2.5rem] p-10 relative">
+            <h3 class="text-3xl font-header font-black mb-1 italic text-white">CHECKOUT</h3>
+            <p class="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-8 text-blue-500">Enter your details to proceed</p>
             
-            <div class="space-y-6">
-                <div>
-                    <label class="text-[10px] font-black uppercase text-blue-500 tracking-widest mb-2 block">Full Name</label>
-                    <input type="text" id="cust_name" class="w-full p-4 rounded-2xl outline-none" placeholder="First & Last Name">
+            <div class="space-y-5">
+                <input type="text" id="cust_name" class="w-full p-4 rounded-2xl outline-none" placeholder="Full Name">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="number" id="cust_age" class="w-full p-4 rounded-2xl outline-none" placeholder="Age">
+                    <input type="text" id="cust_discord" class="w-full p-4 rounded-2xl outline-none" placeholder="Discord Tag">
                 </div>
-                <div class="grid grid-cols-2 gap-5">
-                    <div>
-                        <label class="text-[10px] font-black uppercase text-blue-500 tracking-widest mb-2 block">Your Age</label>
-                        <input type="number" id="cust_age" class="w-full p-4 rounded-2xl outline-none" placeholder="20">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-black uppercase text-blue-500 tracking-widest mb-2 block">Discord Tag</label>
-                        <input type="text" id="cust_discord" class="w-full p-4 rounded-2xl outline-none" placeholder="user#0000">
-                    </div>
-                </div>
-                
-                <div class="pt-8 flex flex-col gap-4">
-                    <button onclick="submitOrder()" class="bg-blue-600 hover:bg-blue-500 w-full py-5 rounded-3xl font-black uppercase text-xs tracking-[0.3em] shadow-2xl transition-all">Submit Request</button>
-                    <button onclick="closeModal()" class="text-slate-600 hover:text-white text-[10px] font-bold uppercase tracking-widest transition">Cancel</button>
-                </div>
+                <button onclick="submitOrder()" class="bg-blue-600 hover:bg-blue-500 w-full py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl transition-all mt-4">Confirm Order</button>
+                <button onclick="closeModal()" class="w-full text-slate-500 hover:text-white text-[10px] font-bold uppercase tracking-widest transition">Cancel</button>
             </div>
         </div>
     </div>
@@ -80,46 +70,40 @@
 
         let currentS = "", currentP = "", currentImg = "";
 
-        // 🛒 34 Scripts List
+        // 🛒 List of 25 Scripts
         const scripts = [
-            { name: "AMA Police MDT", price: "45.00", bio: "Advanced police database & tracking.", img: "p-mdt.png" },
-            { name: "AMA Pacific Bank", price: "60.00", bio: "Multi-stage hacking heist.", img: "pacific.png" },
-            { name: "AMA Modern HUD", price: "20.00", bio: "Sleek UI for status & vehicles.", img: "hud.png" },
-            { name: "AMA Jewelry Store", price: "35.00", bio: "Synced heist with mini-games.", img: "jewelry.png" },
-            { name: "AMA Mechanic System", price: "40.00", bio: "Full tuning and repair job.", img: "mechanic.png" },
-            { name: "AMA Inventory V2", price: "55.00", bio: "Drag & drop with metadata.", img: "inv.png" },
-            { name: "AMA Car Dealer", price: "50.00", bio: "Player-owned dealerships.", img: "cardealer.png" },
-            { name: "AMA House Robbery", price: "25.00", bio: "Searchable houses & NPC alerts.", img: "house.png" },
-            { name: "AMA Multicharacter", price: "30.00", bio: "Modern spawn & character select.", img: "spawn.png" },
-            { name: "AMA Drugs Lab", price: "45.00", bio: "Hidden crafting & selling labs.", img: "drugs.png" },
-            { name: "AMA Dispatch", price: "25.00", bio: "Smart alerts for emergency services.", img: "dispatch.png" },
-            { name: "AMA Garage System", price: "35.00", bio: "Clean vehicle storage & recovery.", img: "garage.png" },
-            { name: "AMA Banking UI", price: "25.00", bio: "Interactive ATM & Bank UI.", img: "bank.png" },
-            { name: "AMA Blackmarket", price: "40.00", bio: "Secret locations with rotating items.", img: "blackmarket.png" },
-            { name: "AMA Admin Menu", price: "30.00", bio: "All-in-one staff management tool.", img: "admin.png" },
-            { name: "AMA Crafting", price: "20.00", bio: "XP-based item crafting system.", img: "crafting.png" },
-            { name: "AMA Ambulance Job", price: "40.00", bio: "Advanced injury & death system.", img: "ems.png" },
-            { name: "AMA Fuel System", price: "15.00", bio: "Optimized gas stations & jerry cans.", img: "fuel.png" },
-            { name: "AMA Shop Robbery", price: "20.00", bio: "Classic 24/7 store heists.", img: "shoprob.png" },
-            { name: "AMA Prison Script", price: "35.00", bio: "Jail jobs and escape systems.", img: "prison.png" },
-            { name: "AMA Barber Shop", price: "20.00", bio: "Modern UI for character grooming.", img: "barber.png" },
-            { name: "AMA Clothing Store", price: "30.00", bio: "Organized outfits and masks.", img: "cloth.png" },
-            { name: "AMA Trucker Job", price: "25.00", bio: "Long-haul delivery missions.", img: "trucker.png" },
-            { name: "AMA Garbage Job", price: "20.00", bio: "Co-op trash collection system.", img: "garbage.png" },
-            { name: "AMA Taxi Job", price: "20.00", bio: "NPC and player fare system.", img: "taxi.png" },
-            { name: "AMA Diving Job", price: "25.00", bio: "Underwater loot and oxygen gear.", img: "diving.png" },
-            { name: "AMA Weapon Shop", price: "30.00", bio: "Legal gun store with license check.", img: "weapons.png" },
-            { name: "AMA Notify UI", price: "10.00", bio: "Custom notification animations.", img: "notify.png" },
-            { name: "AMA Loading Screen", price: "15.00", bio: "Music & video loading interface.", img: "loading.png" },
-            { name: "AMA Scoreboard", price: "10.00", bio: "Clean staff & player count list.", img: "score.png" },
-            { name: "AMA Pawn Shop", price: "15.00", bio: "Legal & illegal item exchange.", img: "pawn.png" },
-            { name: "AMA Rental", price: "10.00", bio: "Bike & vehicle rental stations.", img: "rental.png" },
+            { name: "AMA Police MDT", price: "45.00", bio: "Advanced system for officers.", img: "p-mdt.png" },
+            { name: "AMA Pacific Bank", price: "60.00", bio: "The ultimate bank heist.", img: "pacific.png" },
+            { name: "AMA Modern HUD", price: "20.00", bio: "Sleek status and vehicle UI.", img: "hud.png" },
+            { name: "AMA Jewelry Heist", price: "35.00", bio: "Synced robbery with lasers.", img: "jewelry.png" },
+            { name: "AMA Mechanic Job", price: "40.00", bio: "Full repair and tuning menu.", img: "mechanic.png" },
+            { name: "AMA Inventory V2", price: "55.00", bio: "Grid system with metadata.", img: "inv.png" },
+            { name: "AMA Drugs Lab", price: "45.00", bio: "Coke, Meth & Weed labs.", img: "drugs.png" },
+            { name: "AMA Car Dealer", price: "50.00", bio: "Player-owned showrooms.", img: "cardealer.png" },
+            { name: "AMA House Robbery", price: "25.00", bio: "Steal furniture and loot.", img: "house.png" },
+            { name: "AMA Multicharacter", price: "30.00", bio: "Clean character selector.", img: "spawn.png" },
+            { name: "AMA Banking UI", price: "25.00", bio: "Interactive ATM & Bank.", img: "bank.png" },
+            { name: "AMA Blackmarket", price: "40.00", bio: "Hidden illegal weapon shop.", img: "blackmarket.png" },
+            { name: "AMA Admin Menu", price: "35.00", bio: "Full server control tool.", img: "admin.png" },
+            { name: "AMA Garage V2", price: "30.00", bio: "Organized vehicle storage.", img: "garage.png" },
+            { name: "AMA Dispatch", price: "25.00", bio: "Clean 911 alert system.", img: "dispatch.png" },
+            { name: "AMA Prison Script", price: "35.00", bio: "Jail work and escape.", img: "prison.png" },
             { name: "AMA Weapon Draw", price: "10.00", bio: "Realistic weapon holstering.", img: "holster.png" },
-            { name: "AMA Logs System", price: "20.00", bio: "Full server discord logging.", img: "logs.png" }
+            { name: "AMA Clothing UI", price: "30.00", bio: "Modern shop interface.", img: "cloth.png" },
+            { name: "AMA Trucker Job", price: "25.00", bio: "Advanced hauling missions.", img: "trucker.png" },
+            { name: "AMA Notify", price: "10.00", bio: "Sleek alert animations.", img: "notify.png" },
+            { name: "AMA Scoreboard", price: "15.00", bio: "Minimalist player list.", img: "score.png" },
+            { name: "AMA Fuel System", price: "15.00", bio: "Realistic gas stations.", img: "fuel.png" },
+            { name: "AMA Barber Shop", price: "20.00", bio: "New grooming interface.", img: "barber.png" },
+            { name: "AMA Pawn Shop", price: "15.00", bio: "Exchange items for cash.", img: "pawn.png" },
+            { name: "AMA Loading Screen", price: "15.00", bio: "Music & Background video.", img: "loading.png" }
         ];
 
         function openModal(n, p, img) {
             currentS = n; currentP = p; currentImg = img;
+            document.getElementById('cust_name').value = '';
+            document.getElementById('cust_age').value = '';
+            document.getElementById('cust_discord').value = '';
             document.getElementById('orderModal').style.display = 'flex';
         }
 
@@ -132,18 +116,17 @@
             if (!name || !age || !discord) return alert("Fill all info!");
 
             const payload = {
-                content: `<@&${ROLE_TAG}>`,
+                content: `<@&${ROLE_TAG}> 🚨 **NEW INCOMING ORDER!**`,
                 embeds: [{
-                    title: "🚀 NEW PURCHASE REQUEST",
-                    description: `A new customer wants to buy **${currentS}**`,
+                    title: "🚀 Order Request: " + currentS,
                     color: 2196944,
                     thumbnail: { url: `https://moro12w.github.io/AMA-Shop/${currentImg}` },
                     fields: [
-                        { name: "🛒 Script", value: "```" + currentS + "```", inline: true },
+                        { name: "🛒 Product", value: "```" + currentS + "```", inline: true },
                         { name: "💰 Price", value: "```$" + currentP + "```", inline: true },
                         { name: "👤 Customer", value: `**Name:** ${name}\n**Age:** ${age}\n**Discord:** ${discord}` }
                     ],
-                    footer: { text: "AMA Scripts Auto-Bot" },
+                    footer: { text: "AMA Scripts System" },
                     timestamp: new Date()
                 }]
             };
@@ -158,18 +141,18 @@
             scripts.forEach(s => {
                 const final = (s.price * 0.45).toFixed(2);
                 grid.innerHTML += `
-                    <div class="card rounded-[2.5rem] flex flex-col h-full">
-                        <div class="absolute top-6 left-6 discount-tag text-[9px] font-black px-4 py-1.5 rounded-full z-10 text-white tracking-[0.2em] uppercase">Sale 55%</div>
-                        <img src="${s.img}" class="w-full h-52 object-cover bg-slate-800" onerror="this.src='https://via.placeholder.com/400x250?text=${s.name}'">
+                    <div class="card rounded-[2rem] overflow-hidden relative flex flex-col h-full">
+                        <div class="absolute top-5 left-5 discount-label text-[9px] font-black px-4 py-1.5 rounded-full z-10 shadow-lg">SALE -55%</div>
+                        <img src="${s.img}" class="w-full h-48 object-cover bg-slate-800" onerror="this.src='https://via.placeholder.com/400x200?text=${s.name}'">
                         <div class="p-8 flex flex-col flex-grow">
-                            <h3 class="text-xl font-header font-black italic uppercase tracking-tighter">${s.name}</h3>
-                            <p class="text-slate-500 text-xs mt-4 flex-grow font-light leading-relaxed italic">${s.bio}</p>
-                            <div class="mt-8 flex justify-between items-center bg-slate-900/50 p-4 rounded-3xl border border-slate-800">
+                            <h3 class="text-xl font-header font-black italic tracking-tighter uppercase">${s.name}</h3>
+                            <p class="text-slate-500 text-xs mt-3 flex-grow font-light leading-relaxed italic">${s.bio}</p>
+                            <div class="mt-8 flex justify-between items-end border-t border-slate-800 pt-6">
                                 <div>
                                     <p class="text-[10px] text-slate-500 line-through tracking-tighter">$${s.price}</p>
                                     <p class="text-2xl font-header font-black text-blue-500 mt-1 italic">$${final}</p>
                                 </div>
-                                <button onclick="openModal('${s.name}', '${final}', '${s.img}')" class="bg-white text-black hover:bg-blue-600 hover:text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase transition-all tracking-widest shadow-xl">BUY</button>
+                                <button onclick="openModal('${s.name}', '${final}', '${s.img}')" class="bg-white text-black hover:bg-blue-600 hover:text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase transition-all tracking-widest">BUY NOW</button>
                             </div>
                         </div>
                     </div>`;
