@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMA Scripts | Premium Store -55% OFF</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { background-color: #020617; color: white; font-family: 'Inter', sans-serif; }
+        .discount-label { background: linear-gradient(90deg, #ef4444, #f59e0b); }
+        .card { background: #0f172a; border: 1px solid #1e293b; transition: 0.3s ease-in-out; }
+        .card:hover { transform: translateY(-8px); border-color: #3b82f6; box-shadow: 0 10px 30px -15px rgba(59, 130, 246, 0.5); }
+    </style>
+</head>
+<body>
+
+    <div class="bg-blue-600 text-center py-2 text-xs font-bold tracking-widest uppercase">
+        🎁 Grand Opening: Use Code "AMA55" for 55% OFF (Applied Automatically) 🎁
+    </div>
+
+    <nav class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 p-5 flex justify-between items-center px-10">
+        <h1 class="text-3xl font-black text-blue-500 tracking-tighter">AMA <span class="text-white font-light">SCRIPTS</span></h1>
+        <div class="hidden md:flex space-x-8 font-bold text-xs uppercase">
+            <button onclick="filterScripts('all')" class="hover:text-blue-500">All</button>
+            <button onclick="filterScripts('jobs')" class="hover:text-blue-500">Jobs</button>
+            <button onclick="filterScripts('robbery')" class="hover:text-blue-500">Robberies</button>
+            <button onclick="filterScripts('ui')" class="hover:text-blue-500">UI/UX</button>
+        </div>
+        <a id="discord-link-top" href="#" target="_blank" class="bg-[#5865F2] hover:bg-[#4752c4] px-6 py-2 rounded-lg font-bold text-sm transition">
+            <i class="fab fa-discord mr-2"></i> OPEN TICKET
+        </a>
+    </nav>
+
+    <header class="py-20 text-center">
+        <h2 class="text-7xl font-black mb-4 italic uppercase">Level Up <span class="text-blue-500">QB-Core</span></h2>
+        <p class="text-slate-400 text-lg max-w-2xl mx-auto">The ultimate destination for high-quality, optimized, and affordable FiveM scripts.</p>
+    </header>
+
+    <main class="container mx-auto px-10 pb-20">
+        <div id="grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            </div>
+    </main>
+
+    <script>
+        // ---------------- CONFIGURATION ----------------
+        const MY_WEBHOOK = "https://discord.com/api/webhooks/1466095709349482498/kzVUB-1jCqm0ApWTcvAMtkjuUVKmiyz5PMPXgYD1rq4OsinWLfRyaruyApk0JQUMVP6c"; 
+        const MY_DISCORD = "https://discord.com/channels/1387559214980927599/1466198495374348329";
+        // -----------------------------------------------
+
+        document.getElementById('https://discord.gg/73emSMfn').href = MY_DISCORD;
+
+        // MANAGE YOUR 34 SCRIPTS HERE
+        const scripts = [
+            { id: 1, name: "AMA Police MDT", price: "45.00", cat: "jobs", img: "p-mdt.png" },
+            { id: 2, name: "AMA Pacific Bank", price: "60.00", cat: "robbery", img: "pacific.png" },
+            { id: 3, name: "AMA Modern HUD", price: "20.00", cat: "ui", img: "hud.png" },
+            { id: 4, name: "AMA Jewelry Heist", price: "35.00", cat: "robbery", img: "jewelry.png" },
+            { id: 5, name: "AMA Mechanic Job", price: "40.00", cat: "jobs", img: "mechanic.png" },
+            { id: 6, name: "AMA Inventory V2", price: "55.00", cat: "ui", img: "inv.png" },
+            { id: 7, name: "AMA House Robbery", price: "25.00", cat: "robbery", img: "house.png" },
+            { id: 8, name: "AMA Car Dealer", price: "50.00", cat: "jobs", img: "cardealer.png" },
+            { id: 9, name: "AMA Garage System", price: "30.00", cat: "ui", img: "garage.png" },
+            { id: 10, name: "AMA Drug Dealer", price: "35.00", cat: "jobs", img: "drugs.png" },
+            { id: 11, name: "AMA Bank Robbery", price: "45.00", cat: "robbery", img: "bank.png" },
+            { id: 12, name: "AMA Admin Menu", price: "25.00", cat: "ui", img: "admin.png" },
+            { id: 13, name: "AMA Radial Menu", price: "15.00", cat: "ui", img: "radial.png" },
+            { id: 14, name: "AMA Fuel System", price: "15.00", cat: "ui", img: "fuel.png" },
+            { id: 15, name: "AMA EMS System", price: "40.00", cat: "jobs", img: "ems.png" },
+            { id: 16, name: "AMA Taxi Job", price: "20.00", cat: "jobs", img: "taxi.png" },
+            { id: 17, name: "AMA Trucker Job", price: "25.00", cat: "jobs", img: "truck.png" },
+            { id: 18, name: "AMA Garbage Job", price: "15.00", cat: "jobs", img: "garbage.png" },
+            { id: 19, name: "AMA Mining Job", price: "20.00", cat: "jobs", img: "mining.png" },
+            { id: 20, name: "AMA Fishing Pro", price: "20.00", cat: "jobs", img: "fishing.png" },
+            { id: 21, name: "AMA Hunting", price: "20.00", cat: "jobs", img: "hunting.png" },
+            { id: 22, name: "AMA Prison System", price: "35.00", cat: "jobs", img: "prison.png" },
+            { id: 23, name: "AMA Clothing Store", price: "40.00", cat: "ui", img: "clothes.png" },
+            { id: 24, name: "AMA Apartments", price: "45.00", cat: "ui", img: "apt.png" },
+            { id: 25, name: "AMA Multi Char", price: "30.00", cat: "ui", img: "multichar.png" },
+            { id: 26, name: "AMA Spawn UI", price: "15.00", cat: "ui", img: "spawn.png" },
+            { id: 27, name: "AMA Shop Robbery", price: "20.00", cat: "robbery", img: "shoprob.png" },
+            { id: 28, name: "AMA Black Market", price: "25.00", cat: "robbery", img: "blackm.png" },
+            { id: 29, name: "AMA Crafting", price: "25.00", cat: "jobs", img: "craft.png" },
+            { id: 30, name: "AMA Weapon Shop", price: "30.00", cat: "jobs", img: "weap.png" },
+            { id: 31, name: "AMA Notify UI", price: "10.00", cat: "ui", img: "notify.png" },
+            { id: 32, name: "AMA Job Center", price: "15.00", cat: "ui", img: "jobcenter.png" },
+            { id: 33, name: "AMA Barber Shop", price: "20.00", cat: "ui", img: "barber.png" },
+            { id: 34, name: "AMA Boss Menu", price: "25.00", cat: "ui", img: "boss.png" }
+        ];
+
+        async function processOrder(name, finalPrice) {
+            const discordTag = prompt("Please enter your Discord Username (e.g., AMA#0001):");
+            if (!discordTag) return;
+
+            const orderID = "ORD-" + Math.floor(Math.random() * 899999 + 100000);
+            
+            const payload = {
+                embeds: [{
+                    title: "🚀 New Web Order",
+                    color: 3447003,
+                    fields: [
+                        { name: "Order ID", value: "`" + orderID + "`", inline: true },
+                        { name: "Customer", value: discordTag, inline: true },
+                        { name: "Script", value: name, inline: false },
+                        { name: "Price Paid", value: "**$" + finalPrice + "**", inline: true }
+                    ],
+                    footer: { text: "AMA Scripts System" },
+                    timestamp: new Date()
+                }]
+            };
+
+            try {
+                await fetch(MY_WEBHOOK, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload)});
+                alert("Order Sent Successfully! Opening Discord for Payment...");
+                window.open(MY_DISCORD, "_blank");
+            } catch (e) { alert("Error sending order. Please contact us on Discord."); }
+        }
+
+        function filterScripts(category) {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            
+            const filtered = category === 'all' ? scripts : scripts.filter(s => s.cat === category);
+
+            filtered.forEach(s => {
+                const discountPrice = (s.price * 0.45).toFixed(2);
+                grid.innerHTML += `
+                    <div class="card rounded-2xl overflow-hidden relative flex flex-col">
+                        <div class="absolute top-4 left-4 discount-label text-[10px] font-black px-3 py-1 rounded-full z-10 shadow-lg">-55% OFF</div>
+                        <img src="${s.img}" class="w-full h-48 object-cover border-b border-slate-800 bg-slate-800" onerror="this.src='https://via.placeholder.com/400x200?text=AMA+PREVIEW'">
+                        <div class="p-6 flex-grow">
+                            <h3 class="font-black text-xl tracking-tight">${s.name}</h3>
+                            <div class="mt-8 flex justify-between items-end">
+                                <div>
+                                    <p class="text-xs text-slate-500 line-through tracking-tighter">$${s.price}</p>
+                                    <p class="text-3xl font-black text-green-400 leading-none">$${discountPrice}</p>
+                                </div>
+                                <button onclick="processOrder('${s.name}', '${discountPrice}')" class="bg-white text-black hover:bg-blue-500 hover:text-white px-5 py-2 rounded-xl font-black text-xs transition-all uppercase">Buy Now</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        filterScripts('all');
+    </script>
+</body>
+</html>
