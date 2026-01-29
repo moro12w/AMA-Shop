@@ -1,110 +1,101 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMA Scripts | المتجر النخبة</title>
+    <title>AMA Scripts | Cyber Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Noto+Sans+Arabic:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Inter:wght@400;900&display=swap');
         
-        body { background-color: #020617; color: white; font-family: 'Noto Sans Arabic', sans-serif; overflow: hidden; }
+        body { background-color: #020617; color: white; font-family: 'Inter', sans-serif; overflow: hidden; }
         .font-header { font-family: 'Orbitron', sans-serif; }
         
+        .bg-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.1) 0%, transparent 80%); pointer-events: none; }
+
+        /* الشاشات المنبثقة */
         #auth-screen, #success-screen { 
             position: fixed; inset: 0; background: #020617; z-index: 9999; 
             display: flex; align-items: center; justify-content: center; 
         }
-        #success-screen { display: none; background: rgba(2, 6, 23, 0.98); }
+        #success-screen { display: none; background: rgba(2, 6, 23, 0.98); backdrop-filter: blur(10px); }
 
         .custom-card { 
-            background: #0f172a; border: 1px solid #1e293b; 
-            padding: 3rem; border-radius: 2.5rem; width: 95%; max-width: 450px; text-align: center;
-            box-shadow: 0 0 50px rgba(59, 130, 246, 0.1);
+            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px); 
+            border: 1px solid rgba(59, 130, 246, 0.3); padding: 3rem; 
+            border-radius: 2.5rem; width: 95%; max-width: 450px; text-align: center;
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.1);
         }
 
         #store-content { display: none; height: 100vh; overflow-y: auto; }
-        .card { background: #0f172a; border: 1px solid #1e293b; transition: 0.4s; }
+        .card { 
+            background: #0f172a; border: 1px solid #1e293b; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
         .card:hover { transform: translateY(-10px); border-color: #3b82f6; box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); }
         
-        input { background: rgba(2, 6, 23, 0.6) !important; border: 1px solid #1e293b !important; color: white !important; text-align: center; }
-        .btn-glow { background: #2563eb; transition: 0.3s; }
-        .btn-glow:hover { background: #3b82f6; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
-        
-        .discord-nav-btn {
-            background: #5865F2;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 900;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.3s;
-        }
-        .discord-nav-btn:hover { background: #4752c4; transform: scale(1.05); }
+        input { background: rgba(2, 6, 23, 0.6) !important; border: 1px solid #1e293b !important; color: white !important; }
+        .btn-neon { background: #2563eb; color: white; transition: 0.3s; }
+        .btn-neon:hover { background: #3b82f6; box-shadow: 0 0 25px rgba(59, 130, 246, 0.5); }
     </style>
 </head>
 <body>
 
+    <div class="bg-glow"></div>
+
     <div id="auth-screen">
         <div class="custom-card">
-            <h2 class="text-3xl font-header font-black italic text-white mb-6 uppercase tracking-tighter">التحقق من <span class="text-blue-500">الهوية</span></h2>
-            <div class="space-y-4 text-right">
-                <div>
-                    <label class="text-[12px] font-bold text-slate-500 mb-2 block mr-2">الاسم الكامل</label>
-                    <input type="text" id="auth_name" class="w-full p-4 rounded-2xl outline-none" placeholder="أدخل اسمك هنا">
-                </div>
+            <div class="w-20 h-20 bg-blue-600 mx-auto mb-6 rounded-3xl flex items-center justify-center shadow-2xl shadow-blue-500/50">
+                <i class="fas fa-shield-alt text-3xl"></i>
+            </div>
+            <h2 class="text-3xl font-header font-black italic mb-2 tracking-tighter uppercase">AMA ACCESS</h2>
+            <p class="text-slate-500 text-[10px] mb-10 tracking-[0.4em] uppercase font-bold text-center">Verify Identity to Shop</p>
+            <div class="space-y-4">
+                <input type="text" id="auth_name" class="w-full p-4 rounded-2xl outline-none text-sm text-center" placeholder="FULL NAME">
                 <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-[12px] font-bold text-slate-500 mb-2 block mr-2">العمر</label>
-                        <input type="number" id="auth_age" class="w-full p-4 rounded-2xl outline-none" placeholder="عمرك">
-                    </div>
-                    <div>
-                        <label class="text-[12px] font-bold text-slate-500 mb-2 block mr-2">ديسكورد</label>
-                        <input type="text" id="auth_discord" class="w-full p-4 rounded-2xl outline-none" placeholder="User#0000">
-                    </div>
+                    <input type="number" id="auth_age" class="w-full p-4 rounded-2xl outline-none text-sm text-center" placeholder="AGE">
+                    <input type="text" id="auth_discord" class="w-full p-4 rounded-2xl outline-none text-sm text-center" placeholder="DISCORD USER">
                 </div>
-                <button onclick="login()" class="w-full btn-glow py-5 rounded-2xl font-black uppercase text-sm tracking-widest mt-4">دخول المتجر</button>
+                <button onclick="login()" class="w-full btn-neon py-5 rounded-2xl font-black uppercase text-xs tracking-[0.3em] mt-4">Authorize Entry</button>
             </div>
         </div>
     </div>
 
     <div id="success-screen">
-        <div class="custom-card border-blue-500/30">
-            <div class="w-20 h-20 bg-blue-500/10 text-blue-500 rounded-full mx-auto flex items-center justify-center mb-6 border border-blue-500/30">
-                <i class="fas fa-receipt text-3xl"></i>
+        <div class="custom-card border-blue-500/50">
+            <div class="w-20 h-20 bg-green-500/20 text-green-500 rounded-full mx-auto flex items-center justify-center mb-6 border border-green-500/30">
+                <i class="fas fa-check text-3xl"></i>
             </div>
-            <h2 class="text-2xl font-bold text-white mb-2">تم تسجيل طلبك!</h2>
-            <p class="text-slate-400 text-sm mb-4">يرجى حفظ رقم الطلب وتزويدنا به في الديسكورد:</p>
+            <h2 class="text-2xl font-header font-black italic mb-2">ORDER PLACED</h2>
+            <p class="text-slate-400 text-xs mb-6">Please save your Order ID and provide it in Discord</p>
             
-            <div class="bg-blue-600/20 border border-blue-500/50 p-4 rounded-2xl mb-8">
-                <span class="text-[10px] text-blue-400 block uppercase mb-1">رقم الطلب الخاص بك</span>
+            <div class="bg-blue-600/10 border border-blue-500/30 p-5 rounded-2xl mb-8">
+                <span class="text-[10px] text-blue-400 block uppercase mb-1 tracking-widest">Your Order ID</span>
                 <span id="order-id-display" class="text-3xl font-header font-black tracking-widest text-white">#0000</span>
             </div>
 
-            <a href="https://discord.gg/73emSMfn" target="_blank" class="block w-full bg-[#5865F2] py-5 rounded-2xl font-black text-sm tracking-widest transition shadow-lg">
-                <i class="fab fa-discord ml-2 text-lg"></i> فتح تذكرة الآن
+            <a href="https://discord.gg/73emSMfn" target="_blank" class="block w-full bg-[#5865F2] py-5 rounded-2xl font-black text-xs tracking-widest uppercase transition shadow-lg">
+                <i class="fab fa-discord mr-2 text-lg"></i> Open Discord Ticket
             </a>
-            <button onclick="closeSuccess()" class="mt-6 text-slate-600 hover:text-white text-xs font-bold tracking-widest">إغلاق</button>
+            <button onclick="closeSuccess()" class="mt-6 text-slate-600 hover:text-white text-[10px] font-bold uppercase tracking-widest">Back to Store</button>
         </div>
     </div>
 
     <div id="store-content">
-        <nav class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 p-6 px-10 flex justify-between items-center flex-row-reverse">
-            <h1 class="text-2xl font-header font-black italic">AMA <span class="text-blue-600">SCRIPTS</span></h1>
-            
-            <a href="https://discord.gg/73emSMfn" target="_blank" class="discord-nav-btn shadow-lg shadow-blue-500/20">
-                <i class="fab fa-discord text-base"></i>
-                <span>خادم الديسكورد</span>
-            </a>
+        <nav class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-xl border-b border-slate-800 p-6 px-10 flex justify-between items-center">
+            <h1 class="text-2xl font-header font-black italic tracking-tighter">AMA <span class="text-blue-500">SCRIPTS</span></h1>
+            <div class="flex items-center gap-6">
+                <span id="welcome-user" class="hidden md:block text-[10px] font-bold text-slate-400 uppercase tracking-widest border border-slate-700 px-4 py-2 rounded-full"></span>
+                <a href="https://discord.gg/73emSMfn" target="_blank" class="bg-[#5865F2] px-6 py-2 rounded-xl font-bold text-xs">
+                    <i class="fab fa-discord mr-2"></i> DISCORD
+                </a>
+            </div>
         </nav>
 
-        <header class="py-20 text-center">
-            <h2 class="text-6xl md:text-8xl font-header font-black mb-4 italic tracking-tighter uppercase">THE <span class="text-blue-600 italic">COLLECTION</span></h2>
-            <p class="text-slate-500 text-xs font-bold tracking-[0.6em] uppercase">نخبة برمجيات QB-CORE</p>
+        <header class="py-24 text-center">
+            <h2 class="text-7xl md:text-9xl font-header font-black mb-4 italic tracking-tighter leading-none">THE <span class="text-blue-600">HUB</span></h2>
+            <p class="text-slate-500 text-xs font-bold tracking-[0.6em] uppercase">High Performance Assets Only</p>
         </header>
 
         <main class="container mx-auto px-8 pb-32">
@@ -114,41 +105,45 @@
 
     <script>
         const WEBHOOK_URL = "https://discord.com/api/webhooks/1466095709349482498/kzVUB-1jCqm0ApWTcvAMtkjuUVKmiyz5PMPXgYD1rq4OsinWLfRyaruyApk0JQUMVP6c";
-        const ADMIN_ROLE = "1438109046992408697";
+        const ADMIN_ROLE_ID = "1438109046992408697";
 
-        let user = { name: "", age: "", discord: "" };
+        let currentUser = null;
 
         function login() {
-            const n = document.getElementById('auth_name').value;
-            const a = document.getElementById('auth_age').value;
-            const d = document.getElementById('auth_discord').value;
-            if(!n || !a || !d) return alert("يرجى ملء كافة البيانات!");
-            user = { name: n, age: a, discord: d };
+            const name = document.getElementById('auth_name').value;
+            const age = document.getElementById('auth_age').value;
+            const discord = document.getElementById('auth_discord').value;
+            if(!name || !age || !discord) return alert("Missing Info!");
+            currentUser = { name, age, discord };
             document.getElementById('auth-screen').style.display = 'none';
             document.getElementById('store-content').style.display = 'block';
+            document.getElementById('welcome-user').innerText = `USER: ${name}`;
             document.body.style.overflow = 'auto';
         }
 
-        async function processOrder(scriptName, price, img) {
+        async function requestPurchase(scriptName, price, img) {
             const orderId = "AMA-" + Math.floor(1000 + Math.random() * 9000);
+            
             const payload = {
-                content: `<@&${ADMIN_ROLE}> 🚨 **طلب جديد!**`,
+                content: `<@&${ADMIN_ROLE_ID}> 🚨 **NEW ORDER RECEIVED!**`,
                 embeds: [{
-                    title: "📥 تفاصيل الطلب",
-                    color: 3066993,
+                    title: "📥 Order Details",
+                    color: 2321203,
                     thumbnail: { url: `https://moro12w.github.io/AMA-Shop/${img}` },
                     fields: [
-                        { name: "رقم الطلب", value: "```" + orderId + "```", inline: false },
-                        { name: "المنتج", value: "```" + scriptName + "```", inline: true },
-                        { name: "السعر", value: "```$" + price + "```", inline: true },
-                        { name: "العميل", value: `**الاسم:** ${user.name}\n**ديسكورد:** ${user.discord}`, inline: false }
+                        { name: "📜 Script", value: "```" + scriptName + "```", inline: true },
+                        { name: "💰 Price", value: "```$" + price + "```", inline: true },
+                        { name: "🆔 Order ID", value: "```" + orderId + "```", inline: false },
+                        { name: "👤 Customer", value: `**Name:** ${currentUser.name}\n**Discord:** ${currentUser.discord}` }
                     ],
                     timestamp: new Date()
                 }]
             };
 
             await fetch(WEBHOOK_URL, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload)});
-            document.getElementById('order-id-display').innerText = "#" + orderId;
+            
+            // دابا كنظهر شاشة النجاح داخل الموقع عوض الـ Alert
+            document.getElementById('order-id-display').innerText = orderId;
             document.getElementById('success-screen').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
@@ -158,31 +153,36 @@
             document.body.style.overflow = 'auto';
         }
 
-        // قائمة السكريبتات (يمكنك إضافة الـ 25 كاملة هنا)
         const scripts = [
-            { name: "نظام الشرطة المتطور", price: "45.00", bio: "نظام قاعدة بيانات شامل للشرطة.", img: "p-mdt.png" },
-            { name: "سطو بنك الباسيفيك", price: "60.00", bio: "عملية سطو متعددة المراحل باحترافية.", img: "pacific.png" },
-            { name: "واجهة المستخدم الحديثة", price: "20.00", bio: "واجهة أنيقة لعرض الحالة والسيارات.", img: "hud.png" },
-            { name: "سطو محلات المجوهرات", price: "35.00", bio: "نظام سطو متزامن مع حماية متطورة.", img: "jewelry.png" },
-            { name: "نظام الميكانيكي الشامل", price: "40.00", bio: "قائمة تعديل وتصليح كاملة.", img: "mechanic.png" },
-            { name: "نظام الحقيبة V2", price: "55.00", bio: "حقيبة بنظام Metadata وسحب وإفلات.", img: "inv.png" },
-            { name: "معرض السيارات الخاص", price: "50.00", bio: "إمكانية تملك معارض السيارات وبيعها.", img: "cardealer.png" },
-            { name: "نظام غسيل الأموال", price: "25.00", bio: "طرق سرية لغسل الأموال المكتسبة.", img: "money.png" }
+            { name: "AMA Police MDT", price: "45.00", bio: "Advanced system for officers.", img: "p-mdt.png" },
+            { name: "AMA Pacific Bank", price: "60.00", bio: "The ultimate bank heist.", img: "pacific.png" },
+            { name: "AMA Modern HUD", price: "20.00", bio: "Sleek status and vehicle UI.", img: "hud.png" },
+            { name: "AMA Jewelry Heist", price: "35.00", bio: "Synced robbery with lasers.", img: "jewelry.png" },
+            { name: "AMA Mechanic Job", price: "40.00", bio: "Full repair and tuning menu.", img: "mechanic.png" },
+            { name: "AMA Inventory V2", price: "55.00", bio: "Grid system with metadata.", img: "inv.png" },
+            { name: "AMA Drugs Lab", price: "45.00", bio: "Coke, Meth & Weed labs.", img: "drugs.png" },
+            { name: "AMA Car Dealer", price: "50.00", bio: "Player-owned showrooms.", img: "cardealer.png" }
         ];
 
         function render() {
             const grid = document.getElementById('grid');
             scripts.forEach(s => {
-                const final = (s.price * 0.45).toFixed(2);
+                const discount = (s.price * 0.45).toFixed(2);
                 grid.innerHTML += `
-                    <div class="card rounded-[2.5rem] overflow-hidden flex flex-col h-full text-right">
-                        <img src="${s.img}" class="w-full h-48 object-cover bg-slate-800" onerror="this.src='https://via.placeholder.com/400x200?text=${s.name}'">
+                    <div class="card rounded-[2.5rem] overflow-hidden flex flex-col h-full">
+                        <div class="relative">
+                            <div class="absolute top-5 left-5 bg-blue-600 text-[9px] font-black px-4 py-1.5 rounded-full z-10 uppercase italic">Sale 55%</div>
+                            <img src="${s.img}" class="w-full h-52 object-cover bg-slate-800" onerror="this.src='https://via.placeholder.com/400x250?text=${s.name}'">
+                        </div>
                         <div class="p-8 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold italic uppercase tracking-tighter">${s.name}</h3>
-                            <p class="text-slate-500 text-sm mt-3 flex-grow italic leading-relaxed">${s.bio}</p>
-                            <div class="mt-8 flex justify-between items-center bg-slate-900 p-5 rounded-3xl flex-row-reverse">
-                                <p class="text-2xl font-header font-black text-blue-500 italic">$${final}</p>
-                                <button onclick="processOrder('${s.name}', '${final}', '${s.img}')" class="bg-white text-black hover:bg-blue-600 hover:text-white px-6 py-3 rounded-2xl font-black text-xs uppercase transition-all shadow-xl">اطلب الآن</button>
+                            <h3 class="text-xl font-header font-black italic uppercase tracking-tighter mb-3">${s.name}</h3>
+                            <p class="text-slate-500 text-xs flex-grow leading-relaxed italic">${s.bio}</p>
+                            <div class="mt-10 flex justify-between items-center bg-slate-900/50 p-5 rounded-3xl border border-slate-800">
+                                <div>
+                                    <p class="text-[10px] text-slate-500 line-through">$${s.price}</p>
+                                    <p class="text-2xl font-header font-black text-blue-500 italic">$${discount}</p>
+                                </div>
+                                <button onclick="requestPurchase('${s.name}', '${discount}', '${s.img}')" class="bg-white text-black hover:bg-blue-600 hover:text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase transition-all tracking-widest shadow-xl">Order</button>
                             </div>
                         </div>
                     </div>`;
